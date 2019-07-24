@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="is">
+
+<!-- LÍS hex color = 2b2563 -->
+
+  <head>
+    <meta charset="UTF-8">
+    <title>SÍN reiknivél</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <h1>SÍN reiknivél</h1>
+    Note: Please use Chrome, Firefox, Safari or Opera.
+    <section>
+      <h2>Forsendur</h2>
+      <form action="/action_page.php" id="conditions">
+        Hjúskaparstaða: <select name="person">
+          <option value="single">Einstaklingur</option>
+          <option value="couple">Hjón/Sambúð</option>
+        </select>
+        <br><br>
+        Húsnæði á námstíma: <select name="housing">
+          <option value="renting">Leigu eða eigin húsnæði</option>
+          <option value="noRent">Foreldrahúsum eða leigulaust</option>
+        </select>
+        <br><br>
+        Fjöldi barna: <select name="children">
+          <option value="0">0 börn</option>
+          <option value="1">1 barn</option>
+          <option value="2">2 börn</option>
+          <option value="3">3 börn</option>
+          <option value="4">4 börn</option>
+          <option value="5">5 börn</option>
+          <option value="6">6 börn</option>
+        </select>
+        <br><br>
+        Tekjur á meðan námi stendur (á ári): <input type="number" name="studyIncome" style="padding-right:20px; text-align:right;" value="0" min="0"><span style="margin-left:-20px;">kr</span>
+        <br><br>
+        Niðurfelling eða ekki: <select name="grant">
+          <option value="true">Niðurfelling</option>
+          <option value="false">Ekki niðurfelling</option>
+        </select>
+        <br><br>
+        Skólagjöld (samtáls): <input type="number" name="tuition" style="padding-right:20px; text-align:right;" value="0" min="0"><span style="margin-left:-20px;">kr</span>
+        <br><br>
+        Námstími: <input type="number" name="studyTime" style="padding-right:20px; text-align:right;" value="3" min="0" max="8"><span style="margin-left:-20px;">ár</span>
+        <br><br>
+        Áætlaðar vinnutekjur (á mánuði): <input type="number" name="workIncome" style="padding-right:20px; text-align:right;" value="500000" min="0"><span style="margin-left:-20px;">kr</span>
+        <br><br>
+        Verðbólga: <input type="number" name="inflation" style="padding-right:20px; text-align:right;" value="3.2"><span style="margin-left:-20px;">%</span>
+        <br>
+        Verðtryggðir vextir: <input type="number" name="interestA" value="2.5"><span style="margin-left:10px;">%</span>
+        <br>
+        Óverðtryggðir vextir: <input type="number" name="interestB" value="5.7"><span style="margin-left:10px;">%</span>
+        <br>
+        Launaþróun: <input type="number" name="salaryGrowth" value="4"><span style="margin-left:10px;">%</span>
+      </form>
+
+    </section>
+    <section>
+      <h2>Framfærsla á mánuði</h2>
+
+      Grunnframfærsla: <output form="conditions" name="basicLoan"></output>
+      <br><br>
+      Lán vegna húsnæðis: <output form="conditions" name="housingLoan"></output>
+      <br><br>
+      Lán vegna barna: <output form="conditions" name="childrenLoan"></output>
+      <br><br>
+      Skerðing vegna tekna: <output form="conditions" name="incomeCut"></output>
+      <hr />
+      <b>Framfærslulán alls: <output form="conditions" name="monthlyLoan"></output></b>
+    </section>
+
+  </body>
+</html>
