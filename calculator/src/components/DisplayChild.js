@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const DisplayChild = ({ func, text }) => {
   return (
     <span>
-      {func} <small>{text}</small>
+      <p>{func}</p> <small>{text}</small>
     </span>
   );
 };

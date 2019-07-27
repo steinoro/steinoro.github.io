@@ -2,77 +2,63 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import DisplayChild from "./DisplayChild";
 
-class Display extends Component {
+class CalculateHousingLoan extends Component {
   state = {
-    APR: 0.05
+    HOUSINGLOAN: 1
   };
 
   componentDidMount() {
-    this.calculateAPR();
+    this.calculateHousingLoan();
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
-      this.calculateAPR();
+      this.calculateHousingLoan();
     }
   }
 
-  calculateAPR = () => {
-    const { amount } = this.props;
+  calculateHousingLoan = () => {
+    const {rentValue, relationshipValue, kidsValue} = this.props;
 
-    if (1000 < amount && amount < 5000) {
-      this.setState({ APR: 0.05 });
-    }
-    if (5000 < amount && amount < 10000) {
-      this.setState({ APR: 0.1 });
-    }
-    if (10000 < amount && amount < 15000) {
-      this.setState({ APR: 0.15 });
-    }
-    if (15000 < amount && amount < 20000) {
-      this.setState({ APR: 0.2 });
-    }
+    if (rentValue == true){// && relationshipValue == true && kidsValue == 0) {
+      if (relationshipValue == true ) {
+        if (kidsValue == 0) {
+          this.setState({ HOUSINGLOAN: 53193 });
+        } else if (kidsValue == 1) {
+          this.setState({ HOUSINGLOAN: 62226 });
+        } else {
+          this.setState({ HOUSINGLOAN: 67246 });
+        };
+      } else {
+        if (kidsValue == 0) {
+          this.setState({ HOUSINGLOAN: 75273 });
+        } else if (kidsValue == 1) {
+          this.setState({ HOUSINGLOAN: 124453 });
+        } else {
+          this.setState({ HOUSINGLOAN: 134500 });
+        };
+      };
+    } else {
+      this.setState({ HOUSINGLOAN: 0 });
+    };
   };
 
-  calculateMonthlyRepayment = () => {
-    const { amount, years } = this.props;
-
-    const decimalFormat = this.state.APR + 1;
-    const totalOwed = decimalFormat * amount;
-    const monthlyRepayment = totalOwed / (years * 12);
-
-    return <p>{Math.round(monthlyRepayment)} kr</p>;
-  };
-
-  percentageAPR = () => {
-    return <p>{this.state.APR * 100}%</p>;
+  housingLoanPaid = () => {
+    return <p>{this.state.HOUSINGLOAN} kr</p>;
   };
 
   render() {
     return (
-      <div className="flex">
-        <DisplayChild func={this.percentageAPR()} text="interest rate" />
-        <DisplayChild
-          func={this.calculateMonthlyRepayment()}
-          text=" total loan"
-        />
-        <DisplayChild
-          func={this.calculateMonthlyRepayment()}
-          text=" monthly repayment"
-        />
-          <span>{this.calculateMonthlyRepayment()}<small>test</small></span>
-        <DisplayChild
-          func={this.calculateMonthlyRepayment()}
-          text=" total loan"
-        />
-      </div>
+        <DisplayChild func={this.housingLoanPaid()} text="Lán vegna húsnæðis" />
     );
   }
 }
 
-Display.propTypes = {
-  years: PropTypes.number.isRequired,
-  amount: PropTypes.number.isRequired
+CalculateHousingLoan.propTypes = {
+  rentValue: PropTypes.number.isRequired,
+  relationshipValue: PropTypes.number.isRequired,
+  kidsValue: PropTypes.number.isRequired,
 };
 
-export default Display;
+
+export default CalculateHousingLoan;
