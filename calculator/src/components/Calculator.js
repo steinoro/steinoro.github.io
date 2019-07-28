@@ -1,20 +1,14 @@
 import React, { Component } from "react";
 import InputRange from "react-input-range";
+import Calculations from "./Calculations";
 import DisplayChild from "./DisplayChild";
-import CalculateHousingLoan from "./CalculateHousingLoan";
-import CalculateKidsLoan from "./CalculateKidsLoan";
-import CalculateLoanCut from "./CalculateLoanCut";
 
 import "../styles/Calculator.css";
 import "react-input-range/lib/css/index.css";
 
-
-const Checkbox = props => (
-  <input type="checkbox" {...props} />
-)
 class Calculator extends Component {
   state = {
-    // ----------------------------- Variables -----------------------------
+    // ----------------------------- Variables --------------------------------
     relationshipValue: false,          // Binary, í sambandi eða ekki
     grantValue: true,                  // Binary, annað hvort færðu styrk eða ekki
     rentValue: false,                  // Binary, á leigumarkaði eða ekki
@@ -24,13 +18,14 @@ class Calculator extends Component {
     receivingLoanPeriodValue: 0,       // Int, fjöldi ára í námi
     studyIncomeValue: 0,               // Int, árlegar tekjur námsmanna
 
-    // ----------------------------- Loan values -------------------------------
+    // ----------------------------- Loan values ------------------------------
     basicLoan: 109533,
-    housingLoan: 0,
-    kidsLoan: 0,
-    loanCut: 0,
+    HOUSINGLOAN: 0,
+    KIDSLOAN: 0,
+    LOANCUT: 0,
+    PAYOUT: 0,
 
-    // ----------------------------- "Fixed" values ----------------------------
+    // ----------------------------- "Fixed" values ---------------------------
     estimatedMonthlyWageValue: 550000, // Int, áætluð mánaðarlaun í upphafi eftir námslok
     estimatedInflationValue: 3.2,      // Double, áætluð verðbólga
     interestIndexedValue: 2.5,         // Double, áætlaðir vextir af verðtrygðum lánum
@@ -80,30 +75,32 @@ class Calculator extends Component {
   };
 
 
-// Húsnæðis: rentValue=false: 0
-    // relationshipValue=false AND kidsValue=0: 75273
-    // relationshipValue=false AND kidsValue=1: 124453
-    // relationshipValue=false AND kidsValue>=2: 134500
-    // relationshipValue=true AND kidsValue=0: 53193
-    // relationshipValue=true AND kidsValue=1: 62226
-    // relationshipValue=true AND kidsValue>=2: 67246
-// Barnalán: 35600*kidsValue
-
-// incomeLimit = 1330000
-// loanCut = MAX(0.45*(studyIncomeValue-incomeLimit); 0)
-
-// payOut = MAX(basicLoan+housingLoan+kidsLoan-loanCut ;0)
-
 //yearlyPayOut = 9*payOut
-
-
-
 // if (grantValue) THEN loan = payOut*0.7
 
 // =============== Calculations ===============================================
 
+componentDidMount() {
+  <Calculations
+    
+  />
+}
 
+componentDidUpdate(prevProps) {
+  if (prevProps !== this.props) {
+    <Calculations
+      relationshipValue={this.relationshipValue}
+      grantValue={this.grantValue}
+      rentValue={this.rentValue}
+      kidsValue={this.kidsValue}
+      tuitionValue={this.tuitionValue}
+      graduationValue={this.graduationValue}
+      receivingLoanPeriodValue={this.receivingLoanPeriodValue}
+      studyIncomeValue={this.studyIncomeValue}
 
+    />
+  };
+}
 
 // --------------- Render of calculator ---------------------------------------
 
@@ -161,24 +158,33 @@ render() {
         value={studyIncomeValue}
         onChange={this.handleStudyIncomeChange}
       />
+
+      <h2>Þú færð</h2>
       <div className="flex">
-        <span><p>{this.state.basicLoan} kr</p><small>Grunnframfærsla</small></span>
-
-        <CalculateHousingLoan
-          rentValue={this.state.rentValue}
-          relationshipValue={this.state.relationshipValue}
-          kidsValue={this.state.kidsValue}
+        <DisplayChild
+          func={this.state.basicLoan}
+          text={"Grunnframfærsla"}
         />
-
-        <CalculateKidsLoan
-          kidsValue={this.state.kidsValue}
+        <DisplayChild
+          func={this.state.HOUSINGLOAN}
+          text={"Lán vegna húsnæðis"}
         />
-
+        <DisplayChild
+          func={this.state.KIDSLOAN}
+          text={"Lán vegna barna"}
+        />
         <div className="negative">
-          <CalculateLoanCut
-            studyIncomeValue={this.state.studyIncomeValue}
+          <DisplayChild
+            func={this.state.LOANCUT}
+            text={"Skerðing vegna tekna"}
           />
         </div>
+      </div>
+      <div className="flex">
+        <DisplayChild
+          func={this.state.PAYOUT}
+          text={"Samtáls útborgað á mánuði"}
+        />
       </div>
     </div>
   );
