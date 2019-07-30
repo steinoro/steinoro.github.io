@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import InputRange from "react-input-range";
-import Calculations from "./Calculations";
+import AmountCalculations from "./AmountCalculations";
 import DisplayChild from "./DisplayChild";
 
 import "../styles/Calculator.css";
@@ -19,17 +19,12 @@ class Calculator extends Component {
     studyIncomeValue: 0,               // Int, árlegar tekjur námsmanna
 
     // ----------------------------- Loan values ------------------------------
-    basicLoan: 109533,
-    HOUSINGLOAN: 0,
-    KIDSLOAN: 0,
-    LOANCUT: 0,
-    PAYOUT: 0,
 
     // ----------------------------- "Fixed" values ---------------------------
     estimatedMonthlyWageValue: 550000, // Int, áætluð mánaðarlaun í upphafi eftir námslok
     estimatedInflationValue: 3.2,      // Double, áætluð verðbólga
     interestIndexedValue: 2.5,         // Double, áætlaðir vextir af verðtrygðum lánum
-    interestFloatingValue: 5.7,         // Double, áætlaðir vextir af óverðtrygðum lánum
+    interestFloatingValue: 5.7         // Double, áætlaðir vextir af óverðtrygðum lánum
 
   };
 
@@ -41,7 +36,7 @@ class Calculator extends Component {
     this.setState({ grantValue: value });
   };
   handleRentChange = () => {
-    this.setState({rentValue: !this.state.rentValue});
+    this.setState({ rentValue: !this.state.rentValue});
   };
   handleKidsChange = value => {
     this.setState({ kidsValue: value });
@@ -75,32 +70,6 @@ class Calculator extends Component {
   };
 
 
-//yearlyPayOut = 9*payOut
-// if (grantValue) THEN loan = payOut*0.7
-
-// =============== Calculations ===============================================
-
-componentDidMount() {
-  <Calculations
-    
-  />
-}
-
-componentDidUpdate(prevProps) {
-  if (prevProps !== this.props) {
-    <Calculations
-      relationshipValue={this.relationshipValue}
-      grantValue={this.grantValue}
-      rentValue={this.rentValue}
-      kidsValue={this.kidsValue}
-      tuitionValue={this.tuitionValue}
-      graduationValue={this.graduationValue}
-      receivingLoanPeriodValue={this.receivingLoanPeriodValue}
-      studyIncomeValue={this.studyIncomeValue}
-
-    />
-  };
-}
 
 // --------------- Render of calculator ---------------------------------------
 
@@ -115,9 +84,9 @@ render() {
       <div className="flex">
         <h4>
           <label class="checkboxcontainer">
-            <span>Í sambúð eða hjónaband </span>
+            <span>Sambúð</span>
             <input type="checkbox" value={this.state.relationshipValue}
-              onClick={this.handleRelationshipChange}
+              onChange={this.handleRelationshipChange}
             /><span class="checkmark"></span>
           </label>
         </h4>
@@ -130,6 +99,7 @@ render() {
             /><span class="checkmark"></span>
           </label>
         </h4>
+
       </div>
 
       <h4> Fjöldi barna: {kidsValue} </h4>
@@ -159,33 +129,12 @@ render() {
         onChange={this.handleStudyIncomeChange}
       />
 
-      <h2>Þú færð</h2>
-      <div className="flex">
-        <DisplayChild
-          func={this.state.basicLoan}
-          text={"Grunnframfærsla"}
+        <AmountCalculations
+          relationshipValue={relationshipValue}
+          rentValue={rentValue}
+          kidsValue={kidsValue}
+          studyIncomeValue={studyIncomeValue}
         />
-        <DisplayChild
-          func={this.state.HOUSINGLOAN}
-          text={"Lán vegna húsnæðis"}
-        />
-        <DisplayChild
-          func={this.state.KIDSLOAN}
-          text={"Lán vegna barna"}
-        />
-        <div className="negative">
-          <DisplayChild
-            func={this.state.LOANCUT}
-            text={"Skerðing vegna tekna"}
-          />
-        </div>
-      </div>
-      <div className="flex">
-        <DisplayChild
-          func={this.state.PAYOUT}
-          text={"Samtáls útborgað á mánuði"}
-        />
-      </div>
     </div>
   );
 }
