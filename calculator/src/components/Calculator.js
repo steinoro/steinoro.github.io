@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import InputRange from "react-input-range";
 import AmountCalculations from "./AmountCalculations";
-import DisplayChild from "./DisplayChild";
 
 import "../styles/Calculator.css";
 import "react-input-range/lib/css/index.css";
@@ -14,7 +13,7 @@ class Calculator extends Component {
     rentValue: false,                  // Binary, á leigumarkaði eða ekki
     kidsValue: 0,                      // Int, fjöldi barna
     tuitionValue: 0,                   // Int, upphæð lána
-    graduationValue: [2020, 6],        // Tuple eða listi á formatinu ár/mán
+    graduationValue: "2020-06",        // String on the form YYYY-MM
     receivingLoanPeriodValue: 0,       // Int, fjöldi ára í námi
     studyIncomeValue: 0,               // Int, árlegar tekjur námsmanna
 
@@ -79,12 +78,12 @@ render() {
   return (
     <div className="App">
       <h1>SÍN reiknivél</h1>
-      <small>Settu inn þínar forsendur og fá þínar tölur</small>
+      <small>Settu inn þínar forsendur og fáðu þínar tölur</small>
 
       <div className="flex">
         <h4>
           <label class="checkboxcontainer">
-            <span>Sambúð</span>
+            <span>Í sambúð eða hjónabandi</span>
             <input type="checkbox" value={this.state.relationshipValue}
               onChange={this.handleRelationshipChange}
             /><span class="checkmark"></span>
@@ -111,30 +110,26 @@ render() {
         onChange={this.handleKidsChange}
       />
 
-      <h4> Fjöldi ára með námslánum: {receivingLoanPeriodValue} </h4>
-      <InputRange
-        step={1}
-        maxValue={8}
-        minValue={1}
-        value={receivingLoanPeriodValue}
-        onChange={this.handleReceivingLoanPeriodChange}
-      />
 
       <h4> Áætlaðar tekjur á meðan námi stendur (á ári): {studyIncomeValue} kr</h4>
       <InputRange
         step={10000}
-        maxValue={2000000}
+        maxValue={2600000}
         minValue={0}
         value={studyIncomeValue}
         onChange={this.handleStudyIncomeChange}
       />
 
-        <AmountCalculations
-          relationshipValue={relationshipValue}
-          rentValue={rentValue}
-          kidsValue={kidsValue}
-          studyIncomeValue={studyIncomeValue}
-        />
+      <AmountCalculations
+        relationshipValue={relationshipValue}
+        grantValue={grantValue}
+        rentValue={rentValue}
+        kidsValue={kidsValue}
+        tuitionValue={tuitionValue}
+        graduationValue={graduationValue}
+        receivingLoanPeriodValue={receivingLoanPeriodValue}
+        studyIncomeValue={studyIncomeValue}
+      />
     </div>
   );
 }
