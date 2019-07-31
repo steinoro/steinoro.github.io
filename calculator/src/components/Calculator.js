@@ -10,7 +10,7 @@ class Calculator extends Component {
     // ----------------------------- Variables --------------------------------
     relationshipValue: false,          // Binary, í sambandi eða ekki
     grantValue: true,                  // Binary, annað hvort færðu styrk eða ekki
-    rentValue: false,                  // Binary, á leigumarkaði eða ekki
+    rentValue: true,                  // Binary, á leigumarkaði eða ekki
     kidsValue: 0,                      // Int, fjöldi barna
     tuitionValue: 0,                   // Int, upphæð lána
     graduationValue: "2020-06",        // String on the form YYYY-MM
@@ -94,7 +94,7 @@ render() {
           <label class="checkboxcontainer">
             <span>Leigu eða eigin húsnæði</span>
             <input type="checkbox" value={this.state.rentValue}
-              onClick={this.handleRentChange}
+              onClick={this.handleRentChange} checked
             /><span class="checkmark"></span>
           </label>
         </h4>

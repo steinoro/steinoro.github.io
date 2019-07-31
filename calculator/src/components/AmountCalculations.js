@@ -32,19 +32,19 @@ componentDidUpdate = (prevProps) => {
 // =============== Calculate housing loan =====================================
 
 calculateHousingLoan = () => {
-  if (this.props.rentValue == true){
-    if (this.props.relationshipValue == true ) {
-      if (this.props.kidsValue == 0) {
+  if (this.props.rentValue === true){
+    if (this.props.relationshipValue === true ) {
+      if (this.props.kidsValue === 0) {
         super.setState({ HOUSINGLOAN: 53193 });
-      } else if (this.props.kidsValue == 1) {
+      } else if (this.props.kidsValue === 1) {
         this.setState({ HOUSINGLOAN: 62226 });
       } else {
         this.setState({ HOUSINGLOAN: 67246 });
       };
     } else {
-      if (this.props.kidsValue == 0) {
+      if (this.props.kidsValue === 0) {
         this.setState({ HOUSINGLOAN: 75273 });
-      } else if (this.props.kidsValue == 1) {
+      } else if (this.props.kidsValue === 1) {
         this.setState({ HOUSINGLOAN: 124453 });
       } else {
         this.setState({ HOUSINGLOAN: 134500 });
@@ -58,9 +58,7 @@ calculateHousingLoan = () => {
 // =============== Calculate kids loan ========================================
 
 calculateKidsLoan = () => {
-  const {kidsValue} = this.props;
-  var {KIDSLOAN} = this.state;
-  this.setState({ KIDSLOAN: kidsValue*35600});
+  this.setState({ KIDSLOAN: this.props.kidsValue*35600});
 };
 
 // =============== Calculate loan cut =========================================
